@@ -1,0 +1,11 @@
+{
+  "testEnvironment": "node",
+  "testPathIgnorePatterns": [
+    "<rootDir>/node_modules/",
+    "<rootDir>/src/config/environment/test.js"
+  ],
+  "collectCoverageFrom": [
+    "**/src/**/*.{js,jsx}",
+    "!**/*.gql.js"
+  ]
+}

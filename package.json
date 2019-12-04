@@ -1,0 +1,30 @@
+{
+  "name": "arango-cli",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">13.2.0"
+  },
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "NODE_ENV=development node --inspect=0.0.0.0 src/server.js | ./node_modules/bunyan/bin/bunyan",
+    "test": "NODE_ENV=test jest --config=jest.config.json",
+    "coverage": "NODE_ENV=test JEST_JUNIT_OUTPUT=./build/junit.xml jest --env=node --config=jest.coverage.config.json",
+    "style-check": "eslint .",
+    "transpile": "npx babel src -w --out-dir release --ignore test.js --copy-files"
+  },
+  "dependencies": {
+    "arangojs": "^6.12.0",
+    "commander": "^4.0.1"
+  },
+  "devDependencies": {
+    "conventional-changelog-cli": "^2.0.25",
+    "eslint": "^6.6.0",
+    "eslint-config-prettier": "^6.5.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "git-hooks": "^1.1.10",
+    "jest": "^24.9.0",
+    "jest-junit": "^9.0.0",
+    "prettier": "^1.19.1"
+  }
+}
