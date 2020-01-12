@@ -1,5 +1,5 @@
-import { MissingConfigError } from './missing.js';
-import { UnreadableConfigError } from './unreadable.js';
-import ValidationError from './validation.js';
+const MissingConfigError = require('./missing');
+const UnreadableConfigError = require('./unreadable');
+const ValidationError = require('./validation');
 
-export { MissingConfigError, UnreadableConfigError, ValidationError };
+module.exports = { MissingConfigError, UnreadableConfigError, ValidationError };

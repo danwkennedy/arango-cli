@@ -1,8 +1,8 @@
-import ExtendableError from 'es6-error';
+const ExtendableError = require('es6-error');
 
-export default class ValidationError extends ExtendableError {
+module.exports = class ValidationError extends ExtendableError {
   constructor(errors) {
     super(`There were invalid fields in your configuration`);
     this.errors = errors;
   }
-}
+};

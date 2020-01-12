@@ -1,7 +1,7 @@
-import ExtendableError from 'es6-error';
+const ExtendableError = require('es6-error');
 
-export default class UnreadableConfigError extends ExtendableError {
+module.exports = class UnreadableConfigError extends ExtendableError {
   constructor(path) {
     super(`Error reading configuration file: '${path}'`);
   }
-}
+};

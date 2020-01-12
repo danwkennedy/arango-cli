@@ -1,8 +1,7 @@
 {
   "testEnvironment": "node",
   "testPathIgnorePatterns": [
-    "<rootDir>/node_modules/",
-    "<rootDir>/src/config/environment/test.js"
+    "<rootDir>/node_modules/"
   ],
   "collectCoverageFrom": [
     "**/src/**/*.{js,jsx}",

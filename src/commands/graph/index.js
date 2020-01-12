@@ -1,10 +1,10 @@
 #!/usr/bin/env node
-import program from 'commander';
+const program = require('commander');
 
 program
   .version('0.1.0')
   .command('create', 'create a new graph', { executableFile: './create.js' })
   //   .command('list', 'list packages installed', { isDefault: true })
-  //   .command('remove <name>', 'drop a graph')
-  //   .command('update <name>', 'update a graph')
+  .command('drop', 'drop a graph', { executableFile: './drop.js' })
+  .command('update', 'update a graph', { executableFile: './update.js' })
   .parse(process.argv);

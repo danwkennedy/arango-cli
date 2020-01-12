@@ -1,23 +1,26 @@
-// const getDb = require('../services/arangodb');
+module.exports = async function createGraph(db, opts) {
+  const graph = db.graph(opts.name);
 
-const setupCreateDatabase = require('./create-database');
-// const graphOptions = require('./');
+  await graph.create({
+    edgeDefinitions: opts.edges.map(edge => ({
+      collection: edge.name,
+      from: [edge.from],
+      to: [edge.to]
+    }))
+  });
 
-module.exports = function(db) {
-  const createDatabase = setupCreateDatabase(db);
-  return async function createGraph(options) {
-    // const db = await getDb();
+  for (const edge of opts.edges) {
+    if (edge.indexes && edge.indexes.length > 0) {
+      const collection = graph.edgeCollection(edge.name);
+      await Promise.all(
+        edge.indexes.map(index => collection.createIndex(index))
+      );
+    }
+  }
 
-    const graph = db.graph(options.name);
-
-    await createDatabase(db, options);
-
-    await graph.create({
-      edgeDefinitions: options.edges.map(edge => ({
-        collection: edge.name,
-        from: [edge.from],
-        to: [edge.to]
-      }))
-    });
-  };
+  if (opts.vertices && opts.vertices.length > 0) {
+    await Promise.all(
+      opts.vertices.map(vertex => graph.addVertexCollection(vertex))
+    );
+  }
 };

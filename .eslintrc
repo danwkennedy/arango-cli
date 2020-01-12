@@ -5,17 +5,14 @@
     ],
     "env": {
       "node": true,
-      "mocha": true,
       "es6": true,
       "jest": true
     },
     "parserOptions": {
-      "ecmaVersion": 2018,
-      "sourceType": "module"
+      "ecmaVersion": 2018
     },
     "rules": {
       "prettier/prettier": ["error", {"singleQuote": true, "parser": "flow"}],
-      "no-console": 1,
       "indent": [
         "error",
         2
