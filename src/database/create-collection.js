@@ -1,8 +1,4 @@
-module.exports = function(db) {
-  return async function createCollection(opts) {
-    const collection = db.collection(opts.name);
-
-    await collection.create(opts.properties);
-    await Promise.all(opts.indexes.map(index => collection.createIndex(index)));
-  };
+module.exports = async function(collection, opts) {
+  await collection.create(opts.properties);
+  await Promise.all(opts.indexes.map(index => collection.createIndex(index)));
 };

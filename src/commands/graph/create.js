@@ -1,13 +1,37 @@
 #!/usr/bin/env node
-import program from 'commander';
-import { createGraph } from '../../graph/create-graph';
+const program = require('commander');
+const { Database } = require('arangojs');
+const createGraph = require('../../graph/create-graph');
+const wrap = require('../wrapper');
 
-program.arguments('<name>').action(async function(name) {
-  console.log(`Creating graph with name: ${name}`);
-  // await config =
-  await createGraph(name, config);
+async function create(name, { configuration, logger }) {
+  const db = new Database({
+    url: configuration.connection.urls
+  });
 
-  console.log(`Graph created`);
-});
+  const databaseConfig = configuration.database;
 
-program.parse(process.argv);
+  db.useDatabase(databaseConfig.name);
+
+  if (!(await db.exists())) {
+    logger.error(`Database '${databaseConfig.name}' does not exist`);
+    return;
+  }
+
+  const graphConfig = configuration.graphs.find(graph => graph.name == name);
+
+  if (!graphConfig) {
+    logger.error(`Graph with name ${name} not configured`);
+    return;
+  }
+
+  logger.info(`Creating graph '${name}'`);
+  await createGraph(db, graphConfig);
+
+  logger.info(`Graph created`);
+}
+
+program
+  .arguments('<name>')
+  .action(wrap(create))
+  .parse(process.argv);

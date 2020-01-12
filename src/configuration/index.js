@@ -1,13 +1,13 @@
-import { getConfiguration } from './locator.js';
-// const validator = require('./validator');
-// import Config from './config.js';
+const { getConfiguration } = require('./locator');
+const { validateConfiguration } = require('./validator');
 
-console.log('loading configuration');
+module.exports = { resolveConfiguration };
 
-export function resolveConfiguration(workingDirectory = process.cwd()) {
-  let config = getConfiguration(workingDirectory);
+async function resolveConfiguration(
+  workingDirectory = process.cwd(),
+  logger = null
+) {
+  const config = await getConfiguration(workingDirectory, logger);
 
-  // validator.validate(config);
-  return {};
-  // return new Config(config);
+  return validateConfiguration(config, logger);
 }

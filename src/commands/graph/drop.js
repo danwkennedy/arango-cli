@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 const program = require('commander');
 const { Database } = require('arangojs');
-const updateGraph = require('../../graph/update-graph');
+const dropGraph = require('../../graph/drop-graph');
 const wrap = require('../wrapper');
 
-async function update(name, { configuration, logger }) {
+async function create(name, { configuration, logger }) {
   const db = new Database({
     url: configuration.connection.urls
   });
@@ -25,13 +25,20 @@ async function update(name, { configuration, logger }) {
     return;
   }
 
-  logger.info(`Creating graph '${name}'`);
-  await updateGraph(db, graphConfig);
+  const graph = db.graph(graphConfig.name);
 
-  logger.info(`Graph created`);
+  if (!(await graph.exists())) {
+    logger.error(`Graph '${graphConfig.name}' does not exist`);
+    return;
+  }
+
+  logger.info(`Dropping graph '${name}'`);
+  await dropGraph(db, graphConfig);
+
+  logger.info(`Graph dropped`);
 }
 
 program
   .arguments('<name>')
-  .action(wrap(update))
+  .action(wrap(create))
   .parse(process.argv);

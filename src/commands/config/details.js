@@ -1,13 +1,9 @@
 #!/usr/bin/env node
-import program from 'commander';
-import resolveConfiguration from '../../configuration/index.js';
+const program = require('commander');
+const wrap = require('../wrapper');
 
-console.log(resolveConfiguration);
+async function printConfiguration(_, { configuration, logger }) {
+  logger.info(configuration);
+}
 
-program.action(function() {
-  const config = resolveConfiguration(process.cwd());
-  console.log(`Getting configuration details`);
-  console.log(config);
-});
-
-program.parse(process.argv);
+program.action(wrap(printConfiguration)).parse(process.argv);
