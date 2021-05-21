@@ -20,8 +20,6 @@ module.exports = function wrapAction(action) {
       logger.error(err);
     }
 
-    logger.info(args);
-
     const commandContext = args.pop();
     return await action(
       ...commandContext.args,
