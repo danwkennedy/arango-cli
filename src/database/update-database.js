@@ -1,7 +1,7 @@
 const updateCollection = require('./update-collection');
 const createCollection = require('./create-collection');
 
-module.exports = async function(db, opts) {
+module.exports = async function (db, opts) {
   for (const collectionOpts of opts.collections) {
     const collection = db.collection(collectionOpts.name);
 

@@ -6,7 +6,7 @@ const wrap = require('../wrapper');
 
 async function create(name, { configuration, logger }) {
   const db = new Database({
-    url: configuration.connection.urls
+    url: configuration.connection.urls,
   });
 
   const databaseConfig = configuration.database;
@@ -18,7 +18,7 @@ async function create(name, { configuration, logger }) {
     return;
   }
 
-  const graphConfig = configuration.graphs.find(graph => graph.name == name);
+  const graphConfig = configuration.graphs.find((graph) => graph.name == name);
 
   if (!graphConfig) {
     logger.error(`Graph with name ${name} not configured`);
@@ -38,7 +38,4 @@ async function create(name, { configuration, logger }) {
   logger.info(`Graph dropped`);
 }
 
-program
-  .arguments('<name>')
-  .action(wrap(create))
-  .parse(process.argv);
+program.arguments('<name>').action(wrap(create)).parse(process.argv);

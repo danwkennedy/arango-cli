@@ -2,7 +2,7 @@
 const program = require('commander');
 const wrap = require('../wrapper');
 
-async function printConfiguration(_, { configuration, logger }) {
+async function printConfiguration({ configuration, logger }) {
   logger.info(configuration);
 }
 

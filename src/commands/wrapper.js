@@ -1,12 +1,12 @@
 const { resolveConfiguration } = require('../configuration/index.js');
 
 const logger = require('console-log-level')({
-  level: process.env.LOG_LEVEL || 'info'
+  level: process.env.LOG_LEVEL || 'info',
 });
 
 module.exports = function wrapAction(action) {
   return async function wrappedAction(...args) {
-    process.on('unhandledRejection', error => {
+    process.on('unhandledRejection', (error) => {
       logger.error(error);
     });
 
@@ -20,10 +20,11 @@ module.exports = function wrapAction(action) {
       logger.error(err);
     }
 
-    const commandContext = args.pop();
+    logger.info(args);
 
+    const commandContext = args.pop();
     return await action(
-      ...args,
+      ...commandContext.args,
       { configuration: config, logger: logger },
       commandContext
     );

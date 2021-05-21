@@ -6,8 +6,13 @@ const wrap = require('../wrapper');
 
 async function createNewDatabase({ configuration, logger }) {
   const db = new Database({
-    url: configuration.connection.urls
+    url: configuration.connection.urls,
   });
+
+  db.useBasicAuth(
+    configuration.connection.username,
+    configuration.connection.password
+  );
 
   const databaseConfig = configuration.database;
 

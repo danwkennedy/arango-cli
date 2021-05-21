@@ -1,39 +1,20 @@
-const getDb = require('../services/arangodb');
+const updateCollection = require('../database/update-collection');
 
-const createCollection = require('./create-collection');
-const updateCollection = require('./update-collection');
-const graphOptions = require('./');
+module.exports = async function updateGraph(db, opts, { logger = null }) {
+  const graph = db.graph(opts.name);
 
-module.exports = async function updateGraph() {
-  const db = await getDb();
-  const graph = db.graph(graphOptions.name);
-
-  const allCollections = graphOptions.vertexes.concat(graphOptions.edges);
-
-  for (const vertex of allCollections) {
-    const collection = db.collection(vertex.name);
-
-    if (await collection.exists()) {
-      console.log(`Updating ${vertex.name}`);
-      await updateCollection(db, vertex);
-    } else {
-      console.log(`Creating ${vertex.name}`);
-      await createCollection(db, vertex);
-    }
-  }
-
-  for (const edge of graphOptions.edges) {
+  for (const edge of opts.edges) {
     const collection = db.collection(edge.name);
 
     if (await collection.exists()) {
-      console.log(`Updating edge ${edge.name}`);
-      updateCollection(db, edge);
+      logger?.info(`Updating edge ${edge.name}`);
+      updateCollection(collection, edge);
     } else {
-      console.log(`Creating edge ${edge.name}`);
+      logger?.info(`Creating edge ${edge.name}`);
       await graph.addEdgeDefinition({
         collection: edge.name,
         from: [edge.from],
-        to: [edge.to]
+        to: [edge.to],
       });
     }
   }

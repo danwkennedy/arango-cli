@@ -6,7 +6,7 @@ const wrap = require('../wrapper');
 
 async function drop({ configuration, logger }) {
   const db = new Database({
-    url: configuration.connection.urls
+    url: configuration.connection.urls,
   });
 
   const databaseConfig = configuration.database;

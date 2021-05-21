@@ -4,12 +4,12 @@ const program = require('commander');
 program
   .version('0.1.0')
   .command('create', 'creates a database', {
-    executableFile: './create.js'
+    executableFile: './create.js',
   })
   .command('drop', 'drops a database', {
-    executableFile: './drop.js'
+    executableFile: './drop.js',
   })
   .command('update', 'updates a database', {
-    executableFile: './update.js'
+    executableFile: './update.js',
   })
   .parse(process.argv);

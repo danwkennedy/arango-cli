@@ -1,4 +1,4 @@
-module.exports = async function(collection, opts) {
+module.exports = async function (collection, opts) {
   await collection.create(opts.properties);
-  await Promise.all(opts.indexes.map(index => collection.createIndex(index)));
+  await Promise.all(opts.indexes.map((index) => collection.createIndex(index)));
 };

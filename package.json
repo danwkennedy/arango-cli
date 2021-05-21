@@ -1,37 +1,39 @@
 {
   "name": "arango-cli",
   "version": "0.0.1",
+  "description": "A CLI tool for ArangoDb",
+  "license": "MIT",
+  "repository": {
+    "url": "https://github.com/danwkennedy/arango-cli"
+  },
   "engines": {
     "node": ">13.2.0"
   },
+  "main": "src/metadata",
   "bin": {
     "arango-cli": "./src/cli.js"
   },
   "scripts": {
-    "start": "node src/server.js",
-    "dev": "NODE_ENV=development node --inspect=0.0.0.0 src/server.js | ./node_modules/bunyan/bin/bunyan",
     "test": "NODE_ENV=test jest --config=jest.config.json",
     "coverage": "NODE_ENV=test JEST_JUNIT_OUTPUT=./build/junit.xml jest --env=node --config=jest.coverage.config.json",
-    "style-check": "eslint .",
-    "transpile": "npx babel src -w --out-dir release --ignore test.js --copy-files"
+    "style-check": "eslint ."
   },
   "dependencies": {
-    "@hapi/joi": "^16.1.8",
-    "arangojs": "^6.12.0",
-    "commander": "^4.0.1",
-    "console-log-level": "^1.4.1",
-    "v8n": "^1.3.3"
+    "@hapi/joi": "^17.1.1",
+    "arangojs": "^6.14.1",
+    "commander": "^7.2.0",
+    "console-log-level": "^1.4.1"
   },
   "devDependencies": {
-    "conventional-changelog-cli": "^2.0.25",
-    "eslint": "^6.6.0",
-    "eslint-config-prettier": "^6.5.0",
-    "eslint-plugin-prettier": "^3.1.1",
+    "conventional-changelog-cli": "^2.1.1",
+    "eslint": "^7.26.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
     "esm": "^3.2.25",
     "git-hooks": "^1.1.10",
-    "jest": "^24.9.0",
-    "jest-junit": "^9.0.0",
-    "prettier": "^1.19.1",
+    "jest": "^26.6.3",
+    "jest-junit": "^12.0.0",
+    "prettier": "^2.3.0",
     "proxyquire": "^2.1.3"
   }
 }

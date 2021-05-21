@@ -6,8 +6,15 @@ const wrap = require('../wrapper');
 
 async function update(name, { configuration, logger }) {
   const db = new Database({
-    url: configuration.connection.urls
+    url: configuration.connection.urls,
   });
+
+  if (configuration.connection.username && configuration.connection.password) {
+    db.useBasicAuth(
+      configuration.connection.username,
+      configuration.connection.password
+    );
+  }
 
   const databaseConfig = configuration.database;
 
@@ -18,7 +25,7 @@ async function update(name, { configuration, logger }) {
     return;
   }
 
-  const graphConfig = configuration.graphs.find(graph => graph.name == name);
+  const graphConfig = configuration.graphs.find((graph) => graph.name == name);
 
   if (!graphConfig) {
     logger.error(`Graph with name ${name} not configured`);
@@ -31,7 +38,4 @@ async function update(name, { configuration, logger }) {
   logger.info(`Graph created`);
 }
 
-program
-  .arguments('<name>')
-  .action(wrap(update))
-  .parse(process.argv);
+program.arguments('<name>').action(wrap(update)).parse(process.argv);
