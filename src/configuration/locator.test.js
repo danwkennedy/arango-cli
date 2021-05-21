@@ -11,7 +11,7 @@ describe(`Config locator`, () => {
     expect(files).toEqual([
       '.arango-cli',
       '.arango-cli.js',
-      '.arango-cli.json'
+      '.arango-cli.json',
     ]);
   });
 
@@ -24,7 +24,7 @@ describe(`Config locator`, () => {
 
   test(`throws if it can't read a path`, async () => {
     require('fs').__setMockFiles({
-      'dir/.arango-cli': 'content'
+      'dir/.arango-cli': 'content',
     });
 
     await expect(locator.getConfiguration('dir')).rejects.toEqual(

@@ -16,9 +16,9 @@ describe(`Config validator`, () => {
     const valid = [
       {
         connection: {
-          urls: ['http://localhost:8529']
-        }
-      }
+          urls: ['http://localhost:8529'],
+        },
+      },
     ];
 
     for (const good of valid) {
